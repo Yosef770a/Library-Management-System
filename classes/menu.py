@@ -7,10 +7,11 @@ def menu():
     user_name = ""
     user_id = ""
     wolf=User("zev",234)
+    fox=User("foxy loxy",567)
     book1=Book("the_hobbit","tolkin",1937)
     my_library.add_book(book1)
     my_library.add_user(wolf)
-    print(my_library.list_of_books[0])
+    # print(my_library.list_of_books[0])
     while choice != "7": 
         print("click on 1 number to add a library subscription. click 2 to borrow a book. click 3 to return  a book. click 4 to add a book to the library .click on  7 to leave the library website.") 
         choice = input("Enter your choice: ")    
@@ -26,13 +27,17 @@ def menu():
 
  
         elif choice == "3":
+            book_number=int(input("enter book id"))
+            user_id=int(input("enter your id number"))
+            return_book=my_library.return_book(user_id,book_number)
+            print(return_book)
 
 
-
+        elif choice=="4":
             break    
              
         
 
         
 menu()
-print(my_library.list_of_users[0])
+# print(my_library.list_of_users[0])
