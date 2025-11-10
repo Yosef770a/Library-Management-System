@@ -1,43 +1,46 @@
 from book import Book
 from library import Library
 from user import User
-my_library=Library()
+library=Library()
 def menu():
     choice = None 
-    user_name = ""
-    user_id = ""
-    wolf=User("zev",234)
-    fox=User("foxy loxy",567)
-    book1=Book("the_hobbit","tolkin",1937)
-    my_library.add_book(book1)
-    my_library.add_user(wolf)
-    # print(my_library.list_of_books[0])
     while choice != "7": 
-        print("click on 1 number to add a library subscription. click 2 to borrow a book. click 3 to return  a book. click 4 to add a book to the library .click on  7 to leave the library website.") 
+        print("""
+    Menu: 
+    1 Add a library subscription
+    2 Add a book to the library
+    3 Borrow a book from the library
+    4 Return a book to the library
+    5 View all available books
+    6 Search for a book by title or author
+    7 Exit
+              """) 
         choice = input("Enter your choice: ")    
         if choice == "1": 
-            user_name = input("Please enter your name ")
-            user_id = input("please enter your id number ")
-            my_library.add_user(User(user_name,user_id))
+            user_name = input("Please enter the subscriber name: ")
+            user_id = input("please enter the subscriber id number: ")
+            library.add_user(User(user_name, user_id))
+
         elif choice == "2":
-            book_number=input("please enter the book id number")
-            user_id=input("enter yoer id number")
-            my_book=my_library.borrow_book(user_id,book_number)
-            print(my_book)
-
- 
+             ISBN = input("Enter ISBN: ")
+             title = input("Enter the book title: ")
+             author = input("Enter the author's name: ")
+             library.add_book(Book(ISBN, title, author))
+            
         elif choice == "3":
-            book_number=int(input("enter book id"))
-            user_id=int(input("enter your id number"))
-            return_book=my_library.return_book(user_id,book_number)
-            print(return_book)
+            user_id=input("please enter the subscriber id number: ")
+            book_number=input("Enter the book's ISBN: ")
+            print(library.borrow_book(user_id, book_number))
 
+        elif choice == "4":
+            user_id=int(input("please enter the subscriber id number: "))
+            book_number=int(input("Enter the book's ISBN: "))
+            print(library.return_book(user_id,book_number))
 
-        elif choice=="4":
-            break    
-             
-        
+        elif choice=="5":
+            library.list_available_books()
 
-        
-menu()
-# print(my_library.list_of_users[0])
+        elif choice=="6":
+            search_content = input("Please enter the name or title of the book to search for: ")
+            library.search_book(search_content)
+

@@ -27,10 +27,10 @@ class Library:
         return self.list_of_available_books
 
 
-    def search_book(self,Search_name):
+    def search_book(self,search_content):
         for book in self.list_of_books:
-            if book.title == Search_name or book.author==Search_name:
-                print (f"We have the {book.title} by {book.author}")
+            if book.title == search_content or book.author==search_content:
+                print (f"We have the {book.title} by {book.author}, ISBN: {book.ISBN} ")
                 return True
             
         print(f"We don't have this book")
@@ -38,10 +38,10 @@ class Library:
              
     def borrow_book(self, user_id, book_isbn):
         for book in self.list_of_books:
-            if book.ISBN == int(book_isbn):
+            if str(book.ISBN) == book_isbn:
                 if book.is_available:
                     for user in self.list_of_users:
-                        if user.id == int(user_id):
+                        if str(user.id) == user_id:
                             user.borrowed_books.append(book)
                             book.is_available = False
                             return f"The book has been successfully loaned to you {user.name}"
