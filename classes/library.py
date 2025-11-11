@@ -8,23 +8,30 @@ class Library:
         return f"books {self.list_of_books},users {self.list_of_users},"
 
     def add_book(self,book):
+        for bookf in self.list_of_books:
+            if book.ISBN == bookf.ISBN:
+                return "\nThe book already exists in the library"
         self.list_of_books.append(book)
-        return self.list_of_books
+        return "\nThe book has been successfully added to the library"
     
     def add_user(self,user):
+        for userf in self.list_of_users:
+            if user.id == userf.id:
+                return "\nThe subscription already exists in the system" 
         self.list_of_users.append(user)
-        return self.list_of_users
+        return "\nThe subscription has been successfully added to the system"
+                
     
     def list_available_books(self):
-        self.list_of_available_books=[]
+        list_of_available_books=[]
         for book in self.list_of_books:
-            if book not in self.list_of_available_books:
-                if book.is_available==True:
-                    self.list_of_available_books.append(book)               
+            if book not in list_of_available_books:
+                if book.is_available:
+                    list_of_available_books.append(book)               
             else:
-                if book.is_available==False:
-                    self.list_of_available_books.pop(book)
-        return self.list_of_available_books
+                if not book.is_available:
+                    list_of_available_books.pop(book)
+        return list_of_available_books
 
 
     def search_book(self,search_content):
@@ -44,7 +51,7 @@ class Library:
                         if str(user.id) == user_id:
                             user.borrowed_books.append(book)
                             book.is_available = False
-                            return f"The book has been successfully loaned to you {user.name}"
+                            return f"\n The book was successfully loaned to user {user.name}"
                     return "User not found"
                 else:
                     return "The requested book is not available"
@@ -53,12 +60,10 @@ class Library:
 
     def return_book(self, user_id, book_isbn):
         for book in self.list_of_books:
-            print(self.list_of_books[0])
-            if book.ISBN == book_isbn:
-                print(self.list_of_books[0])
+            if str(book.ISBN) == book_isbn:
                 if not(book.is_available):
                     for user in self.list_of_users:
-                        if user.id == user_id:
+                        if str(user.id) == user_id:
                             user.borrowed_books.remove(book)
                             book.is_available = True
                             return f"The book was successfully returned to the library"
